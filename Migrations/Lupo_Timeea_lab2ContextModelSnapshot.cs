@@ -66,6 +66,54 @@ namespace Lupo_Timeea_lab2.Migrations
                     b.ToTable("Book");
                 });
 
+            modelBuilder.Entity("Lupo_Timeea_lab2.Models.BookCategory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BookID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("BookCategory");
+                });
+
+            modelBuilder.Entity("Lupo_Timeea_lab2.Models.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("AuthorID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(6, 2)");
+
+                    b.Property<int?>("PublisherID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PublishingDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AuthorID");
+
+                    b.HasIndex("PublisherID");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("Lupo_Timeea_lab2.Models.Publisher", b =>
                 {
                     b.Property<int>("ID")
@@ -96,9 +144,53 @@ namespace Lupo_Timeea_lab2.Migrations
                     b.Navigation("Publisher");
                 });
 
+            modelBuilder.Entity("Lupo_Timeea_lab2.Models.BookCategory", b =>
+                {
+                    b.HasOne("Lupo_Timeea_lab2.Models.Book", "Book")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lupo_Timeea_lab2.Models.Category", "Category")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Lupo_Timeea_lab2.Models.Category", b =>
+                {
+                    b.HasOne("Lupo_Timeea_lab2.Models.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorID");
+
+                    b.HasOne("Lupo_Timeea_lab2.Models.Publisher", "Publisher")
+                        .WithMany()
+                        .HasForeignKey("PublisherID");
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Publisher");
+                });
+
             modelBuilder.Entity("Lupo_Timeea_lab2.Models.Author", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Lupo_Timeea_lab2.Models.Book", b =>
+                {
+                    b.Navigation("BookCategories");
+                });
+
+            modelBuilder.Entity("Lupo_Timeea_lab2.Models.Category", b =>
+                {
+                    b.Navigation("BookCategories");
                 });
 
             modelBuilder.Entity("Lupo_Timeea_lab2.Models.Publisher", b =>

@@ -1,8 +1,8 @@
-@page
+@page "/"
 @model Lupo_Timeea_lab2.Pages.Books.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Books";
 }
 
 <h1>Index</h1>
@@ -28,13 +28,21 @@
             <th>
                 Publisher
             </th>
+            <th>
+                BookCategories
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Book)
+        @foreach (var item in Model.BookD.Books)
         {
-            <tr>
+            string selectedRow = "";
+            if (item.ID == Model.BookID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
@@ -49,6 +57,15 @@
                 </td>
                 <td>
                     @item.Publisher?.PublisherName
+                </td>
+                <td>
+                    @{
+                        foreach (var category in item.BookCategories)
+                        {
+                            @category.Category.ID
+                            @: @category.Category.CategoryName <br />
+                        }
+                    }
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

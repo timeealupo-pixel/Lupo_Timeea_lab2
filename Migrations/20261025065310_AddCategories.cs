@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Lupo_Timeea_lab2.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCategoryTables : Migration
+    public partial class AddCategories : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,24 +16,11 @@ namespace Lupo_Timeea_lab2.Migrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Price = table.Column<decimal>(type: "decimal(6, 2)", nullable: false),
-                    PublishingDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    AuthorID = table.Column<int>(type: "INTEGER", nullable: true),
-                    PublisherID = table.Column<int>(type: "INTEGER", nullable: true)
+                    CategoryName = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Category", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Category_Author_AuthorID",
-                        column: x => x.AuthorID,
-                        principalTable: "Author",
-                        principalColumn: "ID");
-                    table.ForeignKey(
-                        name: "FK_Category_Publisher_PublisherID",
-                        column: x => x.PublisherID,
-                        principalTable: "Publisher",
-                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -72,16 +58,6 @@ namespace Lupo_Timeea_lab2.Migrations
                 name: "IX_BookCategory_CategoryID",
                 table: "BookCategory",
                 column: "CategoryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Category_AuthorID",
-                table: "Category",
-                column: "AuthorID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Category_PublisherID",
-                table: "Category",
-                column: "PublisherID");
         }
 
         /// <inheritdoc />

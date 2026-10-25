@@ -93,23 +93,11 @@ namespace Lupo_Timeea_lab2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("AuthorID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(6, 2)");
-
-                    b.Property<int?>("PublisherID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("PublishingDate")
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AuthorID");
-
-                    b.HasIndex("PublisherID");
 
                     b.ToTable("Category");
                 });
@@ -161,21 +149,6 @@ namespace Lupo_Timeea_lab2.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Lupo_Timeea_lab2.Models.Category", b =>
-                {
-                    b.HasOne("Lupo_Timeea_lab2.Models.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorID");
-
-                    b.HasOne("Lupo_Timeea_lab2.Models.Publisher", "Publisher")
-                        .WithMany()
-                        .HasForeignKey("PublisherID");
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Publisher");
                 });
 
             modelBuilder.Entity("Lupo_Timeea_lab2.Models.Author", b =>

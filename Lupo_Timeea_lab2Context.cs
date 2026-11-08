@@ -7,4 +7,6 @@ public class Lupo_Timeea_lab2Context(DbContextOptions<Lupo_Timeea_lab2Context> o
     public DbSet<Lupo_Timeea_lab2.Models.Author> Author { get; set; } = default!;
     public DbSet<Lupo_Timeea_lab2.Models.Category> Category { get; set; } = default!;
     public DbSet<Lupo_Timeea_lab2.Models.BookCategory> BookCategory { get; set; } = default!;
+    public DbSet<Lupo_Timeea_lab2.Models.Member> Member { get; set; } = default!;
+    public DbSet<Lupo_Timeea_lab2.Models.Borrowing> Borrowing { get; set; } = default!;
 }
